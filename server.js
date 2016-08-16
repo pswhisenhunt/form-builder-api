@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 router.route('/elements')
   .post(elementController.create)
-  .get(elementController.all);
+  .get(elementController.getAll);
 
 router.route('/elements/:id')
   .put(elementController.update)

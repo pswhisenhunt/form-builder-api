@@ -41,7 +41,7 @@ Element.prototype.update = function(id, data, callback) {
   });
 };
 
-Element.prototype.all = function(callback) {
+Element.prototype.getAll = function(callback) {
   ElementSchema.find(function(err, elements) {
     if (err) {
       callback(err);

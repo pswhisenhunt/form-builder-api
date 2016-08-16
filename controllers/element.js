@@ -11,8 +11,8 @@ exports.create = function(req, res) {
   });
 };
 
-exports.all = function(req, res) {
-  Element.prototype.all(function(err, docs) {
+exports.getAll = function(req, res) {
+  Element.prototype.getAll(function(err, docs) {
     if (err) {
       return res.send(err);
     } else {
