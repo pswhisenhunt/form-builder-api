@@ -22,7 +22,7 @@ exports.getAll = function(req, res) {
 };
 
 exports.find = function(req, res) {
-  var id = req.params.id || '';
+  var id = req.params.id;
   if (!id) {
     return new Error('Must have an id to locate element in database');
   };
@@ -37,7 +37,7 @@ exports.find = function(req, res) {
 
 
 exports.update = function(req, res) {
-  var id = req.params.id || '';
+  var id = req.params.id;
   if (!id) {
     return new Error('Must have the element\'s id in order to update it in the database.');
   }
@@ -51,7 +51,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  var id = req.params.id || '';
+  var id = req.params.id;
   if (!id) {
     return new Error('Must have the element\'s id in order to delete it from the database');
   }
