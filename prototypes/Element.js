@@ -3,7 +3,6 @@ var _ = require('underscore');
 var ElementSchema = require('../models/ElementSchema');
 
 function Element(data) {
-  data =  data ? this.transformRequest(data) : {};
   var defaults = {
     name: '',
     type: '',
@@ -11,7 +10,13 @@ function Element(data) {
     htmlClass: '',
     htmlId: ''
   };
-  return _.extend(defaults, data);
+  data =  data ? this.transformRequest(data) : defaults;
+  this.name = data.name;
+  this.type = data.type;
+  this.values = data.values;
+  this.htmlClass = data.htmlClass;
+  this.htmlId = data.htmlId;
+  return this;
 };
 
 Element.prototype.transformRequest = function(data) {
@@ -35,8 +40,7 @@ Element.prototype.insert = function(callback) {
 }
 
 Element.prototype.update = function(id, data, callback) {
-  data = data ? this.transformRequest(data) : {};
-  ElementSchema.findOneAndUpdate({_id: id}, {$set:data}, {new: true}, function(err, element){
+  ElementSchema.findOneAndUpdate({_id: id}, data, {new: true}, function(err, element){
     if (err) {
       callback(err)
     };
