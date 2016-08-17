@@ -1,5 +1,4 @@
 var formatArray = require('../utils/formatArray');
-var _ = require('underscore');
 var ElementSchema = require('../models/ElementSchema');
 
 function Element(data) {
