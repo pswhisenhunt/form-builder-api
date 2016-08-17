@@ -39,7 +39,10 @@ describe('Element(data)', function() {
   it('inserts an element object into the db', function(done) {
     this.element.insert(function(err, doc) {
       expect(err).to.be.an('undefined');
-      ELEMENT_ID = doc._id;
+      Element.prototype.getAll(function(err, elements) {
+        expect(err).to.be.an('undefined');
+        expect(elements).to.have.length(1);
+      });
       done();
     });
   });
