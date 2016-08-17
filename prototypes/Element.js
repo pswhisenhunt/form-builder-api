@@ -1,14 +1,17 @@
-var formatArray = require('../utils/index.js').formatArray;
+var formatArray = require('../utils/formatArray');
+var _ = require('underscore');
 var ElementSchema = require('../models/Element');
 
 function Element(data) {
   data =  data ? this.transformRequest(data) : {};
-  this.name = data.name || '';
-  this.type = data.type || '';
-  this.values = data.values || [];
-  this.htmlClass = data.htmlClass || '';
-  this.htmlId = data.htmlId || '';
-  return this;
+  var defaults = {
+    name: '',
+    type: '',
+    values: [],
+    htmlClass: '',
+    htmlId: ''
+  };
+  return _.extend(defaults, data);
 };
 
 Element.prototype.transformRequest = function(data) {
@@ -23,11 +26,11 @@ Element.prototype.transformRequest = function(data) {
 
 Element.prototype.insert = function(callback) {
   var doc = new ElementSchema(this);
-  doc.save(function(err, doc) {
+  doc.save(function(err, element) {
     if (err) {
       callback(err);
     }
-    callback(undefined, { message: 'Element created!', data: doc})
+    callback(undefined, element)
   });
 }
 
