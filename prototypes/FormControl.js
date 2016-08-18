@@ -1,7 +1,7 @@
 var formatArray = require('../utils/formatArray');
-var ElementSchema = require('../models/ElementSchema');
+var FormControlSchema = require('../models/FormControlSchema');
 
-function Element(data) {
+function FormControl(data) {
   var defaults = {
     name: '',
     type: '',
@@ -24,7 +24,7 @@ function Element(data) {
   return this;
 };
 
-Element.prototype.transformRequest = function(data) {
+FormControl.prototype.transformRequest = function(data) {
   return {
     name: data.hasOwnProperty('name') ? data.name.toString() : '',
     type: data.hasOwnProperty('type') ? data.type.toString() : '',
@@ -37,51 +37,51 @@ Element.prototype.transformRequest = function(data) {
   };
 };
 
-Element.prototype.insert = function(callback) {
-  var doc = new ElementSchema(this);
-  doc.save(function(err, element) {
+FormControl.prototype.insert = function(callback) {
+  var doc = new FormControlSchema(this);
+  doc.save(function(err, formControl) {
     if (err) {
       callback(err);
     }
-    callback(undefined, element)
+    callback(undefined, formControl)
   });
 }
 
-Element.prototype.update = function(id, data, callback) {
-  ElementSchema.findOneAndUpdate({_id: id}, data, {new: true}, function(err, element){
+FormControl.prototype.update = function(id, data, callback) {
+  FormControlSchema.findOneAndUpdate({_id: id}, data, {new: true}, function(err, formControl){
     if (err) {
       callback(err)
     };
-    callback(undefined, element);
+    callback(undefined, formControl);
   });
 };
 
-Element.prototype.getAll = function(callback) {
-  ElementSchema.find(function(err, elements) {
+FormControl.prototype.getAll = function(callback) {
+  FormControlSchema.find(function(err, formControls) {
     if (err) {
       callback(err);
     }
-    callback(undefined, elements);
+    callback(undefined, formControls);
   });
 };
 
-Element.prototype.delete = function(id, callback) {
-  ElementSchema.findByIdAndRemove(id, function(err) {
+FormControl.prototype.delete = function(id, callback) {
+  FormControlSchema.findByIdAndRemove(id, function(err) {
     if (err) {
       callback(err);
     };
-    callback(undefined, {message: 'Successfully deleted element: ' + id});
+    callback(undefined, {message: 'Successfully deleted FormControl: ' + id});
   });
 };
 
-Element.prototype.find = function(id, callback) {
-  ElementSchema.findById(id, function(err, element) {
+FormControl.prototype.find = function(id, callback) {
+  FormControlSchema.findById(id, function(err, formControl) {
     if (err) {
       callback(err);
     }
-    callback(undefined, element)
+    callback(undefined, formControl)
   });
 };
 
 
-module.exports = Element;
+module.exports = FormControl;

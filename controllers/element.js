@@ -1,22 +1,22 @@
-var Element = require('../prototypes/Element');
+var FormControl = require('../prototypes/FormControl');
 
 exports.create = function(req, res) {
-  var element = new Element(req.body);
-  element.insert(function(err, element) {
+  var FormControl = new FormControl(req.body);
+  FormControl.insert(function(err, FormControl) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(element);
+      res.json(FormControl);
     };
   });
 };
 
 exports.getAll = function(req, res) {
-  Element.prototype.getAll(function(err, elements) {
+  FormControl.prototype.getAll(function(err, FormControls) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(elements);
+      res.json(FormControls);
     };
   });
 };
@@ -24,13 +24,13 @@ exports.getAll = function(req, res) {
 exports.find = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have an id to locate element in database');
+    return new Error('Must have an id to locate FormControl in database');
   };
-  Element.prototype.find(id, function(err, element) {
+  FormControl.prototype.find(id, function(err, FormControl) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(element);
+      res.json(FormControl);
     };
   });
 };
@@ -39,13 +39,13 @@ exports.find = function(req, res) {
 exports.update = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the element\'s id in order to update it in the database.');
+    return new Error('Must have the FormControl\'s id in order to update it in the database.');
   }
-  Element.prototype.update(id, req.body, function(err, element) {
+  FormControl.prototype.update(id, req.body, function(err, FormControl) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(element);
+      res.json(FormControl);
     };
   });
 };
@@ -53,13 +53,13 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the element\'s id in order to delete it from the database');
+    return new Error('Must have the FormControl\'s id in order to delete it from the database');
   }
-  Element.prototype.delete(id, function(err, element) {
+  FormControl.prototype.delete(id, function(err, FormControl) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(element);
+      res.json(FormControl);
     };
   });
 };

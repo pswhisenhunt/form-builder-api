@@ -4,21 +4,21 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 8000;
 var mongoose = require('mongoose');
-var elementController = require('./controllers/element');
+var FormControlController = require('./controllers/FormControl');
 
 mongoose.connect('mongodb://localhost/form-builder');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-router.route('/elements')
-  .post(elementController.create)
-  .get(elementController.getAll);
+router.route('/FormControls')
+  .post(FormControlController.create)
+  .get(FormControlController.getAll);
 
-router.route('/elements/:id')
-  .put(elementController.update)
-  .get(elementController.find)
-  .delete(elementController.delete);
+router.route('/FormControls/:id')
+  .put(FormControlController.update)
+  .get(FormControlController.find)
+  .delete(FormControlController.delete);
 
 app.use('/api', router);
 app.listen(port, function() {

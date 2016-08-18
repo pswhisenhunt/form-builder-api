@@ -2,7 +2,7 @@
   @author Pamela Whisenhunt
   @date 08/16/2016
 
-  This utility is responsible for transforming an element's values property
+  This utility is responsible for transforming an FormControl's values property
   into a array of strings so that it can be saved in the database without causing
   an error.
 

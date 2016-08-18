@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var ElementSchema = new mongoose.Schema({
+var FormControlSchema = new mongoose.Schema({
   name: String,
   type: String,
   options: [String],
@@ -11,4 +11,4 @@ var ElementSchema = new mongoose.Schema({
   htmlId: String
 });
 
-module.exports = mongoose.model('ElementSchema', ElementSchema);
+module.exports = mongoose.model('FormControl', FormControlSchema);
