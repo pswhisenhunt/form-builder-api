@@ -5,14 +5,20 @@ function Element(data) {
   var defaults = {
     name: '',
     type: '',
-    values: [],
+    options: [],
+    position: 0,
+    form: '',
+    isCustom: false,
     htmlClass: '',
     htmlId: ''
   };
   data =  data ? this.transformRequest(data) : defaults;
   this.name = data.name;
   this.type = data.type;
-  this.values = data.values;
+  this.options = data.options;
+  this.form = data.form;
+  this.position = data.position;
+  this.isCustom = data.isCustom;
   this.htmlClass = data.htmlClass;
   this.htmlId = data.htmlId;
   return this;
@@ -22,7 +28,10 @@ Element.prototype.transformRequest = function(data) {
   return {
     name: data.hasOwnProperty('name') ? data.name.toString() : '',
     type: data.hasOwnProperty('type') ? data.type.toString() : '',
-    values: data.hasOwnProperty('values') ? formatArray.transformToArrayOfStrings(data.values) : [],
+    options: data.hasOwnProperty('options') ? formatArray.transformToArrayOfStrings(data.options) : [],
+    form: data.hasOwnProperty('form') ? data.form.toString() : '',
+    isCustom: data.hasOwnProperty('isCustom') ? data.isCustom : false,
+    position: data.hasOwnProperty('position') ? Number(data.position) : 0,
     htmlClass: data.hasOwnProperty('htmlClass') ? data.htmlClass.toString() : '',
     htmlId: data.hasOwnProperty('htmlId') ? data.htmlId.toString() : ''
   };

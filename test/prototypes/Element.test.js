@@ -11,7 +11,10 @@ describe('Element(data)', function() {
       type: 'select',
       htmlClass: 'select-box',
       htmlId: '',
-      values: 'Portland, Austin, Boulder, Charlotte'
+      position: 2,
+      isCustom: true,
+      form: 'new-form',
+      options: 'Portland, Austin, Boulder, Charlotte'
     });
     if (mongoose.connection.db) {
       return done();
@@ -20,20 +23,26 @@ describe('Element(data)', function() {
     }
   });
   it('constructs a new element object with the passed in values', function() {
-    expect(this.element.values).to.eql(['Portland', 'Austin', 'Boulder', 'Charlotte']);
+    expect(this.element.options).to.eql(['Portland', 'Austin', 'Boulder', 'Charlotte']);
     expect(this.element.name).to.eql('select-box-cities');
     expect(this.element.type).to.eql('select');
     expect(this.element.htmlClass).to.eql('select-box');
     expect(this.element.htmlId).to.eql('');
+    expect(this.element.position).to.eql(2);
+    expect(this.element.form).to.eql('new-form');
+    expect(this.element.isCustom).to.eql(true);
   });
 
   it('constructs a new element object with default values', function() {
     var emptyElement = new Element();
-    expect(emptyElement.values).to.eql([]);
+    expect(emptyElement.options).to.eql([]);
     expect(emptyElement.name).to.eql('');
     expect(emptyElement.type).to.eql('');
     expect(emptyElement.htmlClass).to.eql('');
     expect(emptyElement.htmlId).to.eql('');
+    expect(emptyElement.position).to.eql(0);
+    expect(emptyElement.form).to.eql('');
+    expect(emptyElement.isCustom).to.eql(false);
   });
 
   it('inserts an element object into the db', function(done) {
