@@ -80,6 +80,17 @@ describe('FormControl(data)', function() {
     });
   });
 
+  it('finds a form control object from the db and returns it', function(done) {
+    this.formControl.insert(function(err, formControl) {
+      expect(err).to.be.an('undefined');
+      FormControl.prototype.find(formControl._id, function(err, fc) {
+        expect(err).to.be.an('undefined');
+        expect(fc._id).to.eql(formControl._id);
+        done();
+      });
+    });
+  });
+
   it('deletes an FormControl from the db', function(done) {
     this.formControl.insert(function(err, formControl) {
       FormControl.prototype.delete(formControl._id, function(err, doc) {

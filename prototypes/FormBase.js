@@ -16,7 +16,7 @@ FormBase.prototype.getAll = function(callback) {
 };
 
 FormBase.prototype.find = function(id, callback) {
-  FromSchema.findById(id, function(err, form) {
+  FormSchema.findById(id, function(err, form) {
     if (err) {
       callback(err);
     };
