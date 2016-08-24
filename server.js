@@ -4,8 +4,8 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 8000;
 var mongoose = require('mongoose');
-var FormControlController = require('./controllers/FormControl');
-var FormBaseController = require('./controllers/FormBase');
+var ControlController = require('./controllers/Control');
+var BaseController = require('./controllers/Base');
 
 mongoose.connect('mongodb://localhost/form-builder');
 
@@ -18,22 +18,22 @@ app.use(function(req, res, next) {
 });
 
 router.route('/control')
-  .post(FormControlController.create)
-  .get(FormControlController.getAll);
+  .post(ControlController.create)
+  .get(ControlController.getAll);
 
 router.route('/control/:id')
-  .put(FormControlController.update)
-  .get(FormControlController.find)
-  .delete(FormControlController.delete);
+  .put(ControlController.update)
+  .get(ControlController.find)
+  .delete(ControlController.delete);
 
 router.route('/form')
-  .post(FormBaseController.create)
-  .get(FormBaseController.getAll);
+  .post(BaseController.create)
+  .get(BaseController.getAll);
 
 router.route('/form/:id')
-  .put(FormBaseController.update)
-  .get(FormBaseController.find)
-  .delete(FormBaseController.delete);
+  .put(BaseController.update)
+  .get(BaseController.find)
+  .delete(BaseController.delete);
 
 app.use('/api', router);
 app.listen(port, function() {
