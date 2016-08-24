@@ -1,8 +1,8 @@
 var BaseSchema = require('../models/BaseSchema');
 
 function Base(data) {
-  this.name = data.name.toString() || '';
-  this.controls = data.controls || [];
+  this.name = data.hasOwnProperty('name') ? data.name.toString() : '';
+  this.controls = data.hasOwnProperty('controls') ? data.controls : [];
   return this;
 };
 
