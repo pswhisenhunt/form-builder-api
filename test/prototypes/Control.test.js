@@ -1,12 +1,12 @@
 var expect = require('chai').expect;
-var FormControl = require('../../prototypes/FormControl');
+var Control = require('../../prototypes/Control');
 var db = 'mongodb://localhost/form-builder';
 var mongoose = require('mongoose');
 var clear = require('mocha-mongoose')(db);
 
-describe('FormControl(data)', function() {
+describe('Control(data)', function() {
   before(function(done) {
-    this.formControl = new FormControl({
+    this.control = new Control({
       name: 'select-box-cities',
       type: 'select',
       htmlClass: 'select-box',
@@ -26,32 +26,32 @@ describe('FormControl(data)', function() {
    clear(done);
   });
   it('constructs a new FormControl object with the passed in values', function() {
-    expect(this.formControl.options).to.eql(['Portland', 'Austin', 'Boulder', 'Charlotte']);
-    expect(this.formControl.name).to.eql('select-box-cities');
-    expect(this.formControl.type).to.eql('select');
-    expect(this.formControl.htmlClass).to.eql('select-box');
-    expect(this.formControl.htmlId).to.eql('');
-    expect(this.formControl.position).to.eql(2);
-    expect(this.formControl.form).to.eql('new-form');
-    expect(this.formControl.isCustom).to.eql(true);
+    expect(this.control.options).to.eql(['Portland', 'Austin', 'Boulder', 'Charlotte']);
+    expect(this.control.name).to.eql('select-box-cities');
+    expect(this.control.type).to.eql('select');
+    expect(this.control.htmlClass).to.eql('select-box');
+    expect(this.control.htmlId).to.eql('');
+    expect(this.control.position).to.eql(2);
+    expect(this.control.form).to.eql('new-form');
+    expect(this.control.isCustom).to.eql(true);
   });
 
   it('constructs a new FormControl object with default values', function() {
-    var emptyFormControl = new FormControl();
-    expect(emptyFormControl.options).to.eql([]);
-    expect(emptyFormControl.name).to.eql('');
-    expect(emptyFormControl.type).to.eql('');
-    expect(emptyFormControl.htmlClass).to.eql('');
-    expect(emptyFormControl.htmlId).to.eql('');
-    expect(emptyFormControl.position).to.eql(0);
-    expect(emptyFormControl.form).to.eql('');
-    expect(emptyFormControl.isCustom).to.eql(false);
+    var emptyControl = new Control();
+    expect(emptyControl.options).to.eql([]);
+    expect(emptyControl.name).to.eql('');
+    expect(emptyControl.type).to.eql('');
+    expect(emptyControl.htmlClass).to.eql('');
+    expect(emptyControl.htmlId).to.eql('');
+    expect(emptyControl.position).to.eql(0);
+    expect(emptyControl.form).to.eql('');
+    expect(emptyControl.isCustom).to.eql(false);
   });
 
   it('inserts an FormControl object into the db', function(done) {
-    this.formControl.insert(function(err, doc) {
+    this.control.insert(function(err, doc) {
       expect(err).to.be.an('undefined');
-      FormControl.prototype.getAll(function(err, formControls) {
+      Control.prototype.getAll(function(err, formControls) {
         expect(err).to.be.an('undefined');
         expect(formControls).to.have.length(1);
       });
@@ -60,9 +60,9 @@ describe('FormControl(data)', function() {
   });
 
   it('finds and updates an FormControl object in the db', function(done) {
-    this.formControl.insert(function(err, formControl) {
+    this.control.insert(function(err, formControl) {
       formControl.name = 'Changing name!';
-      FormControl.prototype.update(formControl._id, formControl, function(err, doc) {
+      Control.prototype.update(formControl._id, formControl, function(err, doc) {
         expect(err).to.be.an('undefined');
         expect(doc.name).to.eql('Changing name!');
         done();
@@ -71,8 +71,8 @@ describe('FormControl(data)', function() {
   });
 
   it('gets all the FormControls from the db', function(done) {
-    this.formControl.insert(function(err, formControl) {
-      FormControl.prototype.getAll(function(err, formControls) {
+    this.control.insert(function(err, formControl) {
+      Control.prototype.getAll(function(err, formControls) {
         expect(err).to.be.an('undefined');
         expect(formControls).to.have.length(1);
         done();
@@ -81,9 +81,9 @@ describe('FormControl(data)', function() {
   });
 
   it('finds a form control object from the db and returns it', function(done) {
-    this.formControl.insert(function(err, formControl) {
+    this.control.insert(function(err, formControl) {
       expect(err).to.be.an('undefined');
-      FormControl.prototype.find(formControl._id, function(err, fc) {
+      Control.prototype.find(formControl._id, function(err, fc) {
         expect(err).to.be.an('undefined');
         expect(fc._id).to.eql(formControl._id);
         done();
@@ -92,12 +92,12 @@ describe('FormControl(data)', function() {
   });
 
   it('deletes an FormControl from the db', function(done) {
-    this.formControl.insert(function(err, formControl) {
-      FormControl.prototype.delete(formControl._id, function(err, doc) {
+    this.control.insert(function(err, formControl) {
+      Control.prototype.delete(formControl._id, function(err, doc) {
         expect(err).to.be.an('undefined');
         expect(doc).to.have.property('message');
-        expect(doc.message).to.eql('Successfully deleted FormControl: ' + formControl._id);
-        FormControl.prototype.getAll(function(err, formControls) {
+        expect(doc.message).to.eql('Successfully deleted Control: ' + formControl._id);
+        Control.prototype.getAll(function(err, formControls) {
           expect(formControls).to.have.length(0);
           done();
         });

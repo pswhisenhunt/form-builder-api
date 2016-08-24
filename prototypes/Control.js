@@ -1,7 +1,7 @@
 var formatArray = require('../utils/formatArray');
-var FormControlSchema = require('../models/FormControlSchema');
+var ControlSchema = require('../models/ControlSchema');
 
-function FormControl(data) {
+function Control(data) {
   var defaults = {
     name: '',
     type: '',
@@ -24,7 +24,7 @@ function FormControl(data) {
   return this;
 };
 
-FormControl.prototype.transformRequest = function(data) {
+Control.prototype.transformRequest = function(data) {
   return {
     name: data.hasOwnProperty('name') ? data.name.toString() : '',
     type: data.hasOwnProperty('type') ? data.type.toString() : '',
@@ -37,8 +37,8 @@ FormControl.prototype.transformRequest = function(data) {
   };
 };
 
-FormControl.prototype.insert = function(callback) {
-  var doc = new FormControlSchema(this);
+Control.prototype.insert = function(callback) {
+  var doc = new ControlSchema(this);
   doc.save(function(err, formControl) {
     if (err) {
       callback(err);
@@ -47,8 +47,8 @@ FormControl.prototype.insert = function(callback) {
   });
 }
 
-FormControl.prototype.update = function(id, data, callback) {
-  FormControlSchema.findOneAndUpdate({_id: id}, data, {new: true}, function(err, formControl){
+Control.prototype.update = function(id, data, callback) {
+  ControlSchema.findOneAndUpdate({_id: id}, data, {new: true}, function(err, formControl){
     if (err) {
       callback(err)
     };
@@ -56,8 +56,8 @@ FormControl.prototype.update = function(id, data, callback) {
   });
 };
 
-FormControl.prototype.getAll = function(callback) {
-  FormControlSchema.find(function(err, formControls) {
+Control.prototype.getAll = function(callback) {
+  ControlSchema.find(function(err, formControls) {
     if (err) {
       callback(err);
     }
@@ -65,17 +65,17 @@ FormControl.prototype.getAll = function(callback) {
   });
 };
 
-FormControl.prototype.delete = function(id, callback) {
-  FormControlSchema.findByIdAndRemove(id, function(err) {
+Control.prototype.delete = function(id, callback) {
+  ControlSchema.findByIdAndRemove(id, function(err) {
     if (err) {
       callback(err);
     };
-    callback(undefined, {message: 'Successfully deleted FormControl: ' + id});
+    callback(undefined, {message: 'Successfully deleted Control: ' + id});
   });
 };
 
-FormControl.prototype.find = function(id, callback) {
-  FormControlSchema.findById(id, function(err, formControl) {
+Control.prototype.find = function(id, callback) {
+  ControlSchema.findById(id, function(err, formControl) {
     if (err) {
       callback(err);
     }
@@ -84,4 +84,4 @@ FormControl.prototype.find = function(id, callback) {
 };
 
 
-module.exports = FormControl;
+module.exports = Control;

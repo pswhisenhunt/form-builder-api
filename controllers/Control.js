@@ -1,22 +1,22 @@
-var FormControl = require('../prototypes/FormControl');
+var Control = require('../prototypes/Control');
 
 exports.create = function(req, res) {
-  var FormControl = new FormControl(req.body);
-  FormControl.insert(function(err, FormControl) {
+  var control = new Control(req.body);
+  control.insert(function(err, control) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(FormControl);
+      res.json(control);
     };
   });
 };
 
 exports.getAll = function(req, res) {
-  FormControl.prototype.getAll(function(err, FormControls) {
+  Control.prototype.getAll(function(err, controls) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(FormControls);
+      res.json(controls);
     };
   });
 };
@@ -26,11 +26,11 @@ exports.find = function(req, res) {
   if (!id) {
     return new Error('Must have an id to locate FormControl in database');
   };
-  FormControl.prototype.find(id, function(err, FormControl) {
+  Control.prototype.find(id, function(err, control) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(FormControl);
+      res.json(control);
     };
   });
 };
@@ -41,11 +41,11 @@ exports.update = function(req, res) {
   if (!id) {
     return new Error('Must have the FormControl\'s id in order to update it in the database.');
   }
-  FormControl.prototype.update(id, req.body, function(err, FormControl) {
+  Control.prototype.update(id, req.body, function(err, control) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(FormControl);
+      res.json(control);
     };
   });
 };
@@ -55,11 +55,11 @@ exports.delete = function(req, res) {
   if (!id) {
     return new Error('Must have the FormControl\'s id in order to delete it from the database');
   }
-  FormControl.prototype.delete(id, function(err, FormControl) {
+  Control.prototype.delete(id, function(err, control) {
     if (err) {
       return res.send(err);
     } else {
-      res.json(FormControl);
+      res.json(control);
     };
   });
 };
