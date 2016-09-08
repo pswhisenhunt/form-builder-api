@@ -35,11 +35,20 @@ Base.prototype.insert = function(callback) {
 };
 
 Base.prototype.update = function(id, data, callback) {
-  BaseSchema.findOneAndUpdate({_id: id}, data, {new:true}, function(err, form) {
-    if (err) {
-      callback(err);
-    };
-    callback(undefined, form);
+  BaseSchema.findOneAndUpdate({_id: data._id},
+    {'$set': {
+      'name': data.name,
+      'controls': data.controls
+    }}, function(err) {
+      if (err) {
+        callback(err);
+      };
+      BaseSchema.find(data._id, function(err, form) {
+        if (err) {
+          callback(err);
+        }
+        callback(undefined, form);
+    });
   });
 };
 
@@ -50,10 +59,6 @@ Base.prototype.delete = function(id, callback) {
     };
     callback(undefined, {message: 'Successfully deleted form: ' + id});
   });
-};
-
-Base.prototype.getFormControls = function() {
-
 };
 
 module.exports = Base;

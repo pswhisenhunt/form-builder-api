@@ -7,6 +7,12 @@ var mongoose = require('mongoose');
 var ControlController = require('./controllers/Control');
 var BaseController = require('./controllers/Base');
 
+process.on('uncaughtException', function (err) {
+  console.error(err);
+  console.log("Node NOT Exiting...");
+});
+
+
 mongoose.connect('mongodb://localhost/form-builder');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,20 +24,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-router.route('/control')
+router.route('/controls')
   .post(ControlController.create)
   .get(ControlController.getAll);
 
-router.route('/control/:id')
+router.route('/controls/:id')
   .put(ControlController.update)
   .get(ControlController.find)
   .delete(ControlController.delete);
 
-router.route('/form')
+router.route('/forms')
   .post(BaseController.create)
   .get(BaseController.getAll);
 
-router.route('/form/:id')
+router.route('/forms/:id')
   .put(BaseController.update)
   .get(BaseController.find)
   .delete(BaseController.delete);

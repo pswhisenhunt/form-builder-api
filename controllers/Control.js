@@ -1,4 +1,5 @@
 var Control = require('../prototypes/Control');
+var handleErrors = require('../utils/handleErrors');
 
 exports.create = function(req, res) {
   var control = new Control(req.body);
@@ -24,7 +25,7 @@ exports.getAll = function(req, res) {
 exports.find = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have an id to locate FormControl in database');
+    handleErrors(res, 400, 'Missing Id!');
   };
   Control.prototype.find(id, function(err, control) {
     if (err) {
@@ -39,7 +40,7 @@ exports.find = function(req, res) {
 exports.update = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the FormControl\'s id in order to update it in the database.');
+    handleErrors(res, 400, 'Missing Id!');
   }
   Control.prototype.update(id, req.body, function(err, control) {
     if (err) {
@@ -53,7 +54,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the FormControl\'s id in order to delete it from the database');
+    handleErrors(res, 400, 'Missing Id!');
   }
   Control.prototype.delete(id, function(err, control) {
     if (err) {

@@ -7,7 +7,6 @@ function Control(data) {
     type: '',
     options: [],
     position: 0,
-    form: '',
     isCustom: false,
     htmlClass: '',
     htmlId: ''
@@ -16,7 +15,6 @@ function Control(data) {
   this.name = data.name;
   this.type = data.type;
   this.options = data.options;
-  this.form = data.form;
   this.position = data.position;
   this.isCustom = data.isCustom;
   this.htmlClass = data.htmlClass;
@@ -29,7 +27,6 @@ Control.prototype.transformRequest = function(data) {
     name: data.hasOwnProperty('name') ? data.name.toString() : '',
     type: data.hasOwnProperty('type') ? data.type.toString() : '',
     options: data.hasOwnProperty('options') ? formatArray.transformToArrayOfStrings(data.options) : [],
-    form: data.hasOwnProperty('form') ? data.form.toString() : '',
     isCustom: data.hasOwnProperty('isCustom') ? data.isCustom : false,
     position: data.hasOwnProperty('position') ? Number(data.position) : 0,
     htmlClass: data.hasOwnProperty('htmlClass') ? data.htmlClass.toString() : '',

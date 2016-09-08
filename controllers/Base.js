@@ -1,4 +1,5 @@
 var Base = require('../prototypes/Base');
+var handleErrors = require('../utils/handleErrors');
 
 exports.create = function(req, res) {
   var base = new Base(req.body);
@@ -24,7 +25,7 @@ exports.getAll = function(req, res) {
 exports.find = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have an id to locate Base in database');
+    handleErrors(res, 400, 'Missing Id!');
   };
   Base.prototype.find(id, function(err, base) {
     if (err) {
@@ -39,7 +40,7 @@ exports.find = function(req, res) {
 exports.update = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the Base\'s id in order to update it in the database.');
+    handleErrors(res, 400, 'Missing Id!');
   }
   Base.prototype.update(id, req.body, function(err, base) {
     if (err) {
@@ -53,7 +54,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var id = req.params.id;
   if (!id) {
-    return new Error('Must have the Base\'s id in order to delete it from the database');
+    handleErrors(res, 400, 'Missing Id!');
   }
   Base.prototype.delete(id, function(err, base) {
     if (err) {

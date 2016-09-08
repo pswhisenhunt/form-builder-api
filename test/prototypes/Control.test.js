@@ -13,7 +13,6 @@ describe('Control(data)', function() {
       htmlId: '',
       position: 2,
       isCustom: true,
-      form: 'new-form',
       options: 'Portland, Austin, Boulder, Charlotte'
     });
     if (mongoose.connection.db) {
@@ -32,7 +31,6 @@ describe('Control(data)', function() {
     expect(this.control.htmlClass).to.eql('select-box');
     expect(this.control.htmlId).to.eql('');
     expect(this.control.position).to.eql(2);
-    expect(this.control.form).to.eql('new-form');
     expect(this.control.isCustom).to.eql(true);
   });
 
@@ -44,7 +42,6 @@ describe('Control(data)', function() {
     expect(emptyControl.htmlClass).to.eql('');
     expect(emptyControl.htmlId).to.eql('');
     expect(emptyControl.position).to.eql(0);
-    expect(emptyControl.form).to.eql('');
     expect(emptyControl.isCustom).to.eql(false);
   });
 
