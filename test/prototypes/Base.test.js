@@ -86,7 +86,7 @@ describe('Base(data)', function() {
       formBase.name = "Changing name!";
       Base.prototype.update(formBase._id, formBase, function(err, fb) {
         expect(err).to.be.an('undefined');
-        expect(fb.name).to.eql("Changing name!");
+        expect(fb[0].name).to.eql(formBase.name);
         done();
       });
     });
